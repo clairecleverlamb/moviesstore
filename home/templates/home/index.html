@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<section class="hero-banner">
+  <h1>GT Movies Store</h1>
+  <p>A web store for discovering movies and learning more about the app.</p>
+</section>
+
+<section class="content-card">
+  <h2>Welcome to the GT Movie Store</h2>
+  <p class="muted mt-3 mb-4">
+    This is a movie store web app. Use the About page to learn what the store is for
+    and what you can do here.
+  </p>
+  <a class="btn btn-gt" href="{% url 'home.about' %}">Learn more about the store</a>
+</section>
+{% endblock content %}

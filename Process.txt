@@ -1,0 +1,4 @@
+Process Logbook
+===============================
+Session 1: Project scaffold, Home, About, navbar
+Session 2: User story 1 — About page explains the store purpose

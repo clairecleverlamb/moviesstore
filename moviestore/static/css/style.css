@@ -1,0 +1,157 @@
+:root {
+  --gt-navy: #003057;
+  --gt-gold: #b3a369;
+  --gt-ink: #1f2937;
+  --gt-muted: #6b7280;
+  --gt-bg: #f4f5f7;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  font-family: "Poppins", sans-serif;
+  background: var(--gt-bg);
+  color: var(--gt-ink);
+}
+
+.navbar a.nav-link {
+  color: #FFFEF6 !important;
+}
+.bg-dark {
+  background-color: #2E2E2E !important;
+}
+
+.store-navbar {
+  background: var(--gt-navy);
+}
+
+.store-navbar .navbar-brand {
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  color: #fff;
+}
+
+.store-navbar .nav-link {
+  color: rgba(255, 255, 255, 0.88);
+}
+
+.store-navbar .nav-link:hover {
+  color: var(--gt-gold);
+}
+
+.page-shell {
+  width: min(980px, calc(100% - 2rem));
+  margin: 24px auto;
+  flex: 1;
+}
+
+.hero-banner {
+  min-height: 220px;
+  background: url("/static/img/background.jpg") center center / cover no-repeat;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  text-align: center;
+  border-radius: 8px;
+  padding: 32px 16px;
+}
+
+.hero-banner h1 {
+  margin: 0;
+  font-size: clamp(2rem, 4vw, 3rem);
+  font-weight: 700;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.35);
+}
+
+.hero-banner p {
+  margin: 8px 0 0;
+  font-size: 1rem;
+  max-width: 36rem;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.35);
+}
+
+.content-card,
+.panel {
+  background: #fff;
+  margin-top: 24px;
+  padding: 32px 24px;
+  border-radius: 8px;
+}
+
+.content-card {
+  text-align: center;
+}
+
+.content-card h2,
+.panel h2 {
+  margin-top: 0;
+  font-size: clamp(1.6rem, 3vw, 2.2rem);
+  font-weight: 600;
+}
+
+.btn-gt {
+  background: var(--gt-navy);
+  color: #fff;
+  border: none;
+}
+
+.btn-gt:hover {
+  background: #024272;
+  color: #fff;
+}
+
+.muted {
+  color: var(--gt-muted);
+}
+
+.store-footer {
+  background: var(--gt-navy);
+  color: rgba(255, 255, 255, 0.82);
+  padding: 18px 16px;
+  margin-top: auto;
+}
+
+.ms-footer {
+  background-color: #202020;
+}
+.ms-footer p {
+  color: #7F7F7F;
+  font-size: 13px;
+}
+.ms-footer a:hover {
+  color: #6ab43e;
+  text-decoration: none;
+}
+.ms-footer-bottom span{
+  font-size: 13px;
+  line-height: 38px;
+}
+.ms-footer-bottom a {
+  color: #6ab43e;
+  text-decoration: none;
+}
+.ms-footer-bottom a:hover {
+  color: #fff;
+}
+
+@media (max-width: 768px) {
+  .content-card,
+  .panel {
+    padding: 24px 16px;
+  }
+}
+
+.img-card-200 {
+  width: fit-content;
+  max-height: 200px;
+}
+
+…
+.img-card-400 {
+  width: fit-content;
+  max-height: 400px;
+}
