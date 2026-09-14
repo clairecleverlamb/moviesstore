@@ -3,6 +3,7 @@ Django settings for moviestore project.
 """
 import os
 from pathlib import Path
+from django.contrib.messages import constants as message_constants
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -95,3 +96,9 @@ MAILERS = {
 }
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
+
+MESSAGE_TAGS = {
+    message_constants.ERROR: 'danger',
+}
+
+LOGIN_URL = '/accounts/login/'

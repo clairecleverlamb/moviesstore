@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="p-3">
+  <div class="container">
+    <h2>{{ template_data.title }}</h2>
+    <hr />
+    {% include 'manage_nav.html' %}
+    <div class="card shadow-sm">
+      <div class="card-body">
+        <form method="post" enctype="multipart/form-data">
+          {% csrf_token %}
+          {{ template_data.form.non_field_errors }}
+          {% for field in template_data.form %}
+          <div class="mb-3">
+            <label class="form-label" for="{{ field.id_for_label }}">{{ field.label }}</label>
+            {{ field }}
+            {% for error in field.errors %}
+            <div class="text-danger small">{{ error }}</div>
+            {% endfor %}
+          </div>
+          {% endfor %}
+          <button type="submit" class="btn bg-dark text-white">{{ template_data.submit_label }}</button>
+          <a class="btn btn-outline-secondary" href="{% url 'movies.manage_list' %}">Cancel</a>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock content %}

@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="p-3">
+  <div class="container">
+    <div class="d-flex justify-content-between align-items-center">
+      <h2>Orders</h2>
+      <a class="btn bg-dark text-white" href="{% url 'cart.manage_order_create' %}">Create order</a>
+    </div>
+    <hr />
+    {% include 'manage_nav.html' %}
+    <div class="table-responsive">
+      <table class="table table-striped align-middle">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>User</th>
+            <th>Date</th>
+            <th>Total</th>
+            <th>Items</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for order in template_data.orders %}
+          <tr>
+            <td>{{ order.id }}</td>
+            <td>{{ order.user.username }}</td>
+            <td>{{ order.date }}</td>
+            <td>${{ order.total }}</td>
+            <td>{{ order.item_set.count }}</td>
+            <td class="text-end">
+              <a class="btn btn-sm btn-primary" href="{% url 'cart.manage_order_edit' order_id=order.id %}">Edit</a>
+              <a class="btn btn-sm btn-danger" href="{% url 'cart.manage_order_delete' order_id=order.id %}">Delete</a>
+            </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+{% endblock content %}

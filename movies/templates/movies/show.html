@@ -46,6 +46,16 @@
               <a class="btn btn-danger"
               href="{% url 'movies.delete_review' id=template_data.movie.id review_id=review.id %}">Delete
             </a>
+            {% elif user.is_authenticated %}
+            <form method="post" action="{% url 'movies.report_review' id=template_data.movie.id review_id=review.id %}" class="row gy-2 gx-2 align-items-center mt-2">
+              {% csrf_token %}
+              <div class="col-sm-7">
+                {{ template_data.report_form.reason }}
+              </div>
+              <div class="col-auto">
+                <button type="submit" class="btn btn-outline-danger btn-sm">Report review</button>
+              </div>
+            </form>
             {% endif %}
           </li>
           {% endfor %}
@@ -81,8 +91,10 @@
         {% endif %}
       </div>
       <div class="col-md-6 mx-auto mb-3 text-center">
+        {% if template_data.movie.image %}
         <img src="{{ template_data.movie.image.url }}"
           class="rounded img-card-400" />
+        {% endif %}
       </div>
     </div>
   </div>

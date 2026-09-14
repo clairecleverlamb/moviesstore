@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="p-3">
+  <div class="container">
+    <div class="d-flex justify-content-between align-items-center">
+      <h2>Users</h2>
+      <a class="btn bg-dark text-white" href="{% url 'accounts.manage_user_create' %}">Create user</a>
+    </div>
+    <hr />
+    {% include 'manage_nav.html' %}
+    <div class="table-responsive">
+      <table class="table table-striped align-middle">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Username</th>
+            <th>Email</th>
+            <th>Staff</th>
+            <th>Active</th>
+            <th>Orders</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for managed_user in template_data.users %}
+          <tr>
+            <td>{{ managed_user.id }}</td>
+            <td>{{ managed_user.username }}</td>
+            <td>{{ managed_user.email }}</td>
+            <td>{% if managed_user.is_staff %}Yes{% else %}No{% endif %}</td>
+            <td>{% if managed_user.is_active %}Yes{% else %}No{% endif %}</td>
+            <td>{{ managed_user.order_count }}</td>
+            <td class="text-end">
+              <a class="btn btn-sm btn-primary" href="{% url 'accounts.manage_user_edit' user_id=managed_user.id %}">Edit</a>
+              {% if managed_user != user %}
+              <a class="btn btn-sm btn-danger" href="{% url 'accounts.manage_user_delete' user_id=managed_user.id %}">Delete</a>
+              {% endif %}
+            </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+{% endblock content %}
