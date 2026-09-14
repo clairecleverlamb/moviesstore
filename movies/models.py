@@ -19,5 +19,26 @@ class Review(models.Model):
         on_delete=models.CASCADE)
     user = models.ForeignKey(User,
         on_delete=models.CASCADE)
+    is_hidden = models.BooleanField(default=False)
     def __str__(self):
         return str(self.id) + ' - ' + self.movie.name
+
+
+class ReviewReport(models.Model):
+    id = models.AutoField(primary_key=True)
+    reason = models.CharField(max_length=255, blank=True)
+    date = models.DateTimeField(auto_now_add=True)
+    review = models.ForeignKey(Review,
+        on_delete=models.CASCADE, related_name='reports')
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+
+    class Meta:
+        constraints = [
+            models.UniqueConstraint(
+                fields=['review', 'user'],
+                name='unique_review_report_per_user',
+            ),
+        ]
+
+    def __str__(self):
+        return f'{self.user.username} reported review {self.review_id}'

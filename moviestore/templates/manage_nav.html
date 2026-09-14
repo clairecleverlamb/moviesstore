@@ -1,0 +1,22 @@
+<ul class="nav nav-pills flex-wrap mb-4">
+  <li class="nav-item">
+    <a class="nav-link {% if request.resolver_match.url_name == 'manage' %}active bg-dark{% endif %}"
+      href="{% url 'accounts.manage' %}">Overview</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link {% if 'manage_user' in request.resolver_match.url_name %}active bg-dark{% endif %}"
+      href="{% url 'accounts.manage_users' %}">Users</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link {% if request.resolver_match.url_name == 'manage_list' or request.resolver_match.url_name == 'manage_create' or request.resolver_match.url_name == 'manage_edit' or request.resolver_match.url_name == 'manage_delete' %}active bg-dark{% endif %}"
+      href="{% url 'movies.manage_list' %}">Movies</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link {% if 'manage_review' in request.resolver_match.url_name %}active bg-dark{% endif %}"
+      href="{% url 'movies.manage_reviews' %}">Reviews</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link {% if 'manage_order' in request.resolver_match.url_name %}active bg-dark{% endif %}"
+      href="{% url 'cart.manage_orders' %}">Orders</a>
+  </li>
+</ul>

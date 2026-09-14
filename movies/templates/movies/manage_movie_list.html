@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="p-3">
+  <div class="container">
+    <div class="d-flex justify-content-between align-items-center">
+      <h2>Movies</h2>
+      <a class="btn bg-dark text-white" href="{% url 'movies.manage_create' %}">Create movie</a>
+    </div>
+    <hr />
+    {% include 'manage_nav.html' %}
+    <div class="table-responsive">
+      <table class="table table-striped align-middle">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Price</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for movie in template_data.movies %}
+          <tr>
+            <td>{{ movie.id }}</td>
+            <td><a class="link-dark" href="{% url 'movies.show' id=movie.id %}">{{ movie.name }}</a></td>
+            <td>${{ movie.price }}</td>
+            <td class="text-end">
+              <a class="btn btn-sm btn-primary" href="{% url 'movies.manage_edit' movie_id=movie.id %}">Edit</a>
+              <a class="btn btn-sm btn-danger" href="{% url 'movies.manage_delete' movie_id=movie.id %}">Delete</a>
+            </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+{% endblock content %}

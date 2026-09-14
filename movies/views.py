@@ -1,7 +1,10 @@
-from django.shortcuts import render
-from .models import Movie, Review
-from django.shortcuts import redirect, get_object_or_404
+from django.contrib import messages
 from django.contrib.auth.decorators import login_required
+from django.shortcuts import get_object_or_404, redirect, render
+
+from .forms import ReviewReportForm
+from .models import Movie, Review, ReviewReport
+
 
 def index(request):
     search_term = request.GET.get('search') ## retrive the values of the search
@@ -17,11 +20,12 @@ def index(request):
 
 def show(request, id):
     movie = Movie.objects.get(id=id)
-    reviews = Review.objects.filter(movie=movie)
+    reviews = Review.objects.filter(movie=movie, is_hidden=False)
     template_data = {}
     template_data['title'] = movie.name
     template_data['movie'] = movie
     template_data['reviews'] = reviews
+    template_data['report_form'] = ReviewReportForm()
     return render(request, 'movies/show.html',
                   {'template_data': template_data})
 
@@ -51,7 +55,6 @@ def edit_review(request, id, review_id):
         return render(request, 'movies/edit_review.html',
             {'template_data': template_data})
     elif request.method == 'POST' and request.POST['comment'] != '':
-        review = Review.objects.get(id=review_id)
         review.comment = request.POST['comment']
         review.save()
         return redirect('movies.show', id=id)
@@ -63,4 +66,29 @@ def edit_review(request, id, review_id):
 def delete_review(request, id, review_id):
     review = get_object_or_404(Review, id=review_id, user=request.user)
     review.delete()
+    return redirect('movies.show', id=id)
+
+
+@login_required
+def report_review(request, id, review_id):
+    review = get_object_or_404(Review, id=review_id, movie_id=id, is_hidden=False)
+    if request.method != 'POST':
+        return redirect('movies.show', id=id)
+    if request.user == review.user:
+        messages.error(request, 'You cannot report your own review.')
+        return redirect('movies.show', id=id)
+    if ReviewReport.objects.filter(review=review, user=request.user).exists():
+        messages.info(request, 'You already reported this review.')
+        return redirect('movies.show', id=id)
+
+    form = ReviewReportForm(request.POST)
+    if form.is_valid():
+        ReviewReport.objects.create(
+            review=review,
+            user=request.user,
+            reason=form.cleaned_data.get('reason', ''),
+        )
+        review.is_hidden = True
+        review.save(update_fields=['is_hidden'])
+        messages.success(request, 'Review reported and removed from this page.')
     return redirect('movies.show', id=id)

@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="p-3">
+  <div class="container">
+    <h2>Manage Store</h2>
+    <hr />
+    {% include 'manage_nav.html' %}
+    <p class="text-muted">Administrators can view, create, update, and delete store data from these pages.</p>
+    <div class="row">
+      <div class="col-md-6 col-lg-3 mb-3">
+        <div class="card h-100">
+          <div class="card-body">
+            <h5 class="card-title">Users</h5>
+            <p class="display-6">{{ template_data.user_count }}</p>
+            <a class="btn bg-dark text-white" href="{% url 'accounts.manage_users' %}">Manage users</a>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6 col-lg-3 mb-3">
+        <div class="card h-100">
+          <div class="card-body">
+            <h5 class="card-title">Movies</h5>
+            <p class="display-6">{{ template_data.movie_count }}</p>
+            <a class="btn bg-dark text-white" href="{% url 'movies.manage_list' %}">Manage movies</a>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6 col-lg-3 mb-3">
+        <div class="card h-100">
+          <div class="card-body">
+            <h5 class="card-title">Reviews</h5>
+            <p class="display-6">{{ template_data.review_count }}</p>
+            <p class="small text-muted mb-2">
+              {{ template_data.hidden_review_count }} hidden /
+              {{ template_data.report_count }} reports
+            </p>
+            <a class="btn bg-dark text-white" href="{% url 'movies.manage_reviews' %}">Manage reviews</a>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6 col-lg-3 mb-3">
+        <div class="card h-100">
+          <div class="card-body">
+            <h5 class="card-title">Orders</h5>
+            <p class="display-6">{{ template_data.order_count }}</p>
+            <a class="btn bg-dark text-white" href="{% url 'cart.manage_orders' %}">Manage orders</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock content %}

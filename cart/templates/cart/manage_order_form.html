@@ -1,0 +1,66 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="p-3">
+  <div class="container">
+    <h2>{{ template_data.title }}</h2>
+    <hr />
+    {% include 'manage_nav.html' %}
+    <div class="card shadow-sm">
+      <div class="card-body">
+        <form method="post">
+          {% csrf_token %}
+          {{ template_data.form.non_field_errors }}
+          <div class="mb-3">
+            <label class="form-label" for="{{ template_data.form.user.id_for_label }}">Customer</label>
+            {{ template_data.form.user }}
+            {% for error in template_data.form.user.errors %}
+            <div class="text-danger small">{{ error }}</div>
+            {% endfor %}
+          </div>
+          <h5 class="mt-4">Order items</h5>
+          {{ template_data.formset.management_form }}
+          {{ template_data.formset.non_form_errors }}
+          <div class="table-responsive">
+            <table class="table">
+              <thead>
+                <tr>
+                  <th>Movie</th>
+                  <th>Quantity</th>
+                  <th>Price</th>
+                  <th>Delete</th>
+                </tr>
+              </thead>
+              <tbody>
+                {% for item_form in template_data.formset %}
+                <tr>
+                  <td>
+                    {% for hidden in item_form.hidden_fields %}{{ hidden }}{% endfor %}
+                    {{ item_form.movie }}
+                    {% for error in item_form.movie.errors %}<div class="text-danger small">{{ error }}</div>{% endfor %}
+                  </td>
+                  <td>
+                    {{ item_form.quantity }}
+                    {% for error in item_form.quantity.errors %}<div class="text-danger small">{{ error }}</div>{% endfor %}
+                  </td>
+                  <td>
+                    {{ item_form.price }}
+                    {% for error in item_form.price.errors %}<div class="text-danger small">{{ error }}</div>{% endfor %}
+                  </td>
+                  <td>
+                    {{ item_form.DELETE }}
+                    {% for error in item_form.non_field_errors %}<div class="text-danger small">{{ error }}</div>{% endfor %}
+                  </td>
+                </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+          </div>
+          <p class="small text-muted">Leave price blank on a new line to use the movie's current price. The order total is calculated from the items.</p>
+          <button type="submit" class="btn bg-dark text-white">{{ template_data.submit_label }}</button>
+          <a class="btn btn-outline-secondary" href="{% url 'cart.manage_orders' %}">Cancel</a>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock content %}
